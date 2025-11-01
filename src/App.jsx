@@ -37,7 +37,7 @@ function App() {
     ])
       .then(([hubsData, destinationsData, districtsData]) => {
         setHubs(hubsData);
-        setDestinations(destinationsData.Sheet1 || destinationsData); // Thailand data has Sheet1 wrapper
+        setDestinations(destinationsData);
         setDistricts(districtsData.features || []);
         // Set default hub to first one
         if (hubsData.length > 0) {
@@ -200,7 +200,7 @@ function App() {
             address: dest.address,
             distance: data.routes[0].distance / 1000,
             duration: data.routes[0].duration / 60,
-            orders: dest.oders_per_month || 0,
+            orders: dest.orders_per_month || 0,
             carrier_type: dest.carrier_type || 'N/A', // Add carrier type
             geometry: data.routes[0].geometry // Store geometry for map
           });
@@ -291,7 +291,7 @@ function App() {
         }}>
           <div>
             <h1 style={{ margin: 0, fontSize: '24px', color: '#333' }}>
-              🗺️ Logistics Hub Optimization - Thailand
+              🗺️ Logistics Hub Optimization - Cambodia
             </h1>
             <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#666' }}>
               {selectedHub ? `${selectedHub.province_name} - ${selectedHub.name}` : 'Select a hub'}

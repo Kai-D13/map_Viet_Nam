@@ -6,7 +6,7 @@ const PasswordProtection = ({ children }) => {
   const [error, setError] = useState('');
 
   // Password được set trong environment variable
-  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2025';
+  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2024';
 
   useEffect(() => {
     // Check if already authenticated (stored in sessionStorage)
@@ -23,7 +23,7 @@ const PasswordProtection = ({ children }) => {
       sessionStorage.setItem('logistics_auth', 'true');
       setError('');
     } else {
-      setError('Mật khẩu không đúng. Vui lòng thử lại.');
+      setError('Password không đúng. Vui lòng thử lại.');
       setPassword('');
     }
   };
@@ -59,7 +59,7 @@ const PasswordProtection = ({ children }) => {
           onMouseEnter={(e) => e.target.style.backgroundColor = '#c82333'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#dc3545'}
         >
-          🚪 Đăng xuất
+          🚪 Logout
         </button>
       </>
     );
@@ -95,7 +95,7 @@ const PasswordProtection = ({ children }) => {
             color: '#666',
             margin: 0
           }}>
-            Vui lòng nhập mật khẩu để truy cập
+            Please enter password to access
           </p>
         </div>
 
@@ -108,13 +108,13 @@ const PasswordProtection = ({ children }) => {
               color: '#333',
               marginBottom: '8px'
             }}>
-              Mật khẩu:
+              Password:
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Nhập mật khẩu"
+              placeholder="Enter password"
               autoFocus
               style={{
                 width: '100%',
@@ -162,7 +162,7 @@ const PasswordProtection = ({ children }) => {
             onMouseEnter={(e) => e.target.style.backgroundColor = '#5568d3'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#667eea'}
           >
-            🔓 Đăng nhập
+            🔓 Login
           </button>
         </form>
 

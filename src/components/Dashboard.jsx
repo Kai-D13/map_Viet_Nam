@@ -899,7 +899,7 @@ const Dashboard = ({
                             gap: '8px',
                             flexWrap: 'wrap'
                           }}>
-                            <span>📦 {dest.oders_per_month || 0} orders/tháng</span>
+                            <span>📦 {dest.orders_per_month || 0} orders/tháng</span>
                             {distance !== null && (
                               <span style={{
                                 fontSize: '11px',
