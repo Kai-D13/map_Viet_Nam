@@ -5,8 +5,8 @@ const PasswordProtection = ({ children }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  // Password được set trong environment variable
-  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2024';
+  // Password Ä‘Æ°á»£c set trong environment variable
+  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2025';
 
   useEffect(() => {
     // Check if already authenticated (stored in sessionStorage)
@@ -23,7 +23,7 @@ const PasswordProtection = ({ children }) => {
       sessionStorage.setItem('logistics_auth', 'true');
       setError('');
     } else {
-      setError('Password không đúng. Vui lòng thử lại.');
+      setError('Password khÃ´ng Ä‘Ãºng. Vui lÃ²ng thá»­ láº¡i.');
       setPassword('');
     }
   };
@@ -59,7 +59,7 @@ const PasswordProtection = ({ children }) => {
           onMouseEnter={(e) => e.target.style.backgroundColor = '#c82333'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#dc3545'}
         >
-          🚪 Logout
+          ðŸšª Logout
         </button>
       </>
     );
@@ -88,7 +88,7 @@ const PasswordProtection = ({ children }) => {
             margin: '0 0 10px 0',
             color: '#333'
           }}>
-            🗺️ Logistics Hub System
+            ðŸ—ºï¸ Logistics Hub System
           </h1>
           <p style={{
             fontSize: '14px',
@@ -141,7 +141,7 @@ const PasswordProtection = ({ children }) => {
               fontSize: '14px',
               marginBottom: '20px'
             }}>
-              ⚠️ {error}
+              âš ï¸ {error}
             </div>
           )}
 
@@ -162,7 +162,7 @@ const PasswordProtection = ({ children }) => {
             onMouseEnter={(e) => e.target.style.backgroundColor = '#5568d3'}
             onMouseLeave={(e) => e.target.style.backgroundColor = '#667eea'}
           >
-            🔓 Login
+            ðŸ”“ Login
           </button>
         </form>
 
@@ -175,7 +175,7 @@ const PasswordProtection = ({ children }) => {
           color: '#666',
           textAlign: 'center'
         }}>
-          💡 Liên hệ admin để được cấp mật khẩu truy cập
+          ðŸ’¡ LiÃªn há»‡ admin Ä‘á»ƒ Ä‘Æ°á»£c cáº¥p máº­t kháº©u truy cáº­p
         </div>
       </div>
     </div>
