@@ -655,6 +655,7 @@ const Dashboard = ({
                   }}
                 >
                   <option value="">Tất cả carrier types</option>
+                  <option value="1PL">🔴 1PL</option>
                   <option value="2PL">🟢 2PL</option>
                   <option value="3PL">🟠 3PL</option>
                 </select>
@@ -815,8 +816,8 @@ const Dashboard = ({
                   </div>
                 ) : (
                   filteredDestinations.map(dest => {
-                    const carrierColor = dest.carrier_type === '2PL' ? '#4264fb' : '#ff8c00';
-                    const carrierBg = dest.carrier_type === '2PL' ? '#e3f2fd' : '#fff3e0';
+                    const carrierColor = dest.carrier_type === '1PL' ? '#dc3545' : dest.carrier_type === '2PL' ? '#4264fb' : '#ff8c00';
+                    const carrierBg = dest.carrier_type === '1PL' ? '#f8d7da' : dest.carrier_type === '2PL' ? '#e3f2fd' : '#fff3e0';
 
                     // Calculate distance and get color zone
                     let distance = null;
@@ -1012,8 +1013,8 @@ const Dashboard = ({
                       fontSize: '10px',
                       fontWeight: 'bold',
                       marginLeft: '6px',
-                      backgroundColor: route.carrier_type === '2PL' ? '#d4edda' : route.carrier_type === '3PL' ? '#d1ecf1' : '#e2e3e5',
-                      color: route.carrier_type === '2PL' ? '#155724' : route.carrier_type === '3PL' ? '#0c5460' : '#383d41'
+                      backgroundColor: route.carrier_type === '1PL' ? '#f8d7da' : route.carrier_type === '2PL' ? '#d4edda' : route.carrier_type === '3PL' ? '#d1ecf1' : '#e2e3e5',
+                      color: route.carrier_type === '1PL' ? '#721c24' : route.carrier_type === '2PL' ? '#155724' : route.carrier_type === '3PL' ? '#0c5460' : '#383d41'
                     };
 
                     return (

@@ -153,6 +153,8 @@ const Map = ({
             // Selected: brighter version of carrier color
             [
               'case',
+              ['==', ['get', 'carrier_type'], '1PL'],
+              '#dc3545', // 1PL red
               ['==', ['get', 'carrier_type'], '2PL'],
               '#4264fb', // 2PL blue
               '#ff8c00'  // 3PL orange
@@ -160,6 +162,8 @@ const Map = ({
             // Not selected: carrier type color
             [
               'case',
+              ['==', ['get', 'carrier_type'], '1PL'],
+              '#dc3545', // 1PL red
               ['==', ['get', 'carrier_type'], '2PL'],
               '#4264fb', // 2PL blue
               '#ff8c00'  // 3PL orange
@@ -215,7 +219,7 @@ const Map = ({
         const coordinates = e.features[0].geometry.coordinates.slice();
         const props = e.features[0].properties;
 
-        const carrierColor = props.carrier_type === '2PL' ? '#4264fb' : '#ff8c00';
+        const carrierColor = props.carrier_type === '1PL' ? '#dc3545' : props.carrier_type === '2PL' ? '#4264fb' : '#ff8c00';
 
         // Calculate distance from destination's actual hub (not selectedHub)
         // This ensures accuracy when in cross-hub mode or when viewing all destinations
@@ -311,11 +315,15 @@ const Map = ({
       // Calculate hub statistics
       const hubDestinations = destinations.filter(d => d.hub_id === hub.id);
       const totalOrders = hubDestinations.reduce((sum, d) => sum + (d.orders_per_month || 0), 0);
+      const onePlCount = hubDestinations.filter(d => d.carrier_type === '1PL').length;
       const twoPlCount = hubDestinations.filter(d => d.carrier_type === '2PL').length;
       const threePlCount = hubDestinations.filter(d => d.carrier_type === '3PL').length;
       const isEmpty = hubDestinations.length === 0;
 
       // Calculate orders by carrier type
+      const onePlOrders = hubDestinations
+        .filter(d => d.carrier_type === '1PL')
+        .reduce((sum, d) => sum + (d.orders_per_month || 0), 0);
       const twoPlOrders = hubDestinations
         .filter(d => d.carrier_type === '2PL')
         .reduce((sum, d) => sum + (d.orders_per_month || 0), 0);
@@ -389,7 +397,7 @@ const Map = ({
                       ${hubDestinations.length}
                     </div>
                     <div style="font-size: 10px; color: #999; margin-top: 2px;">
-                      2PL: ${twoPlCount} | 3PL: ${threePlCount}
+                      ${onePlCount > 0 ? `1PL: ${onePlCount} | ` : ''}2PL: ${twoPlCount} | 3PL: ${threePlCount}
                     </div>
                   </div>
 
@@ -409,6 +417,17 @@ const Map = ({
                     <div style="font-size: 11px; color: #666; font-weight: bold; margin-bottom: 6px;">
                       📊 Order Breakdown by Carrier Type
                     </div>
+                    ${onePlCount > 0 ? `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                      <div style="font-size: 11px; color: #333;">
+                        <span style="display: inline-block; width: 8px; height: 8px; background: #dc3545; border-radius: 50%; margin-right: 4px;"></span>
+                        1PL Orders:
+                      </div>
+                      <div style="font-size: 11px; font-weight: bold; color: #dc3545;">
+                        ${onePlOrders.toLocaleString()}
+                      </div>
+                    </div>
+                    ` : ''}
                     <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
                       <div style="font-size: 11px; color: #333;">
                         <span style="display: inline-block; width: 8px; height: 8px; background: #28a745; border-radius: 50%; margin-right: 4px;"></span>
