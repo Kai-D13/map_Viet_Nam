@@ -567,10 +567,6 @@ const Map = ({
             padding: { top: 100, bottom: 100, left: 450, right: 100 },
             maxZoom: 12,
               minZoom: 8,
-              minZoom: 8,
-              minZoom: 8,
-            duration: 1000
-          });
         }
       } catch (error) {
         console.warn('Error fitting bounds:', error);
@@ -992,11 +988,7 @@ const Map = ({
               padding: { top: 100, bottom: 100, left: 100, right: 100 },
               maxZoom: 12,
               minZoom: 8,
-              minZoom: 8,
-              minZoom: 8,
               duration: 1500
-            });
-          }, 100);
         }
       } catch (error) {
         console.error('Error showing hub territory:', error);

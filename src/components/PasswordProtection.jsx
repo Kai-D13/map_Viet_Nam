@@ -6,7 +6,7 @@ const PasswordProtection = ({ children }) => {
   const [error, setError] = useState('');
 
   // Password được set trong environment variable
-  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2024';
+  const CORRECT_PASSWORD = import.meta.env.VITE_ACCESS_PASSWORD || 'logistics2025';
 
   useEffect(() => {
     // Check if already authenticated (stored in sessionStorage)

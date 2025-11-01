@@ -291,7 +291,7 @@ function App() {
         }}>
           <div>
             <h1 style={{ margin: 0, fontSize: '24px', color: '#333' }}>
-              ðŸ—ºï¸ Logistics Hub Optimization - Cambodia
+              ðŸ—ºï¸ Logistics Hub Optimization - Thailand
             </h1>
             <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#666' }}>
               {selectedHub ? `${selectedHub.province_name} - ${selectedHub.name}` : 'Select a hub'}
