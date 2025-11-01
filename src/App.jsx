@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Map from './components/Map'
 import Dashboard from './components/Dashboard'
 import PasswordProtection from './components/PasswordProtection'
@@ -37,7 +37,7 @@ function App() {
     ])
       .then(([hubsData, destinationsData, districtsData]) => {
         setHubs(hubsData);
-        setDestinations(destinationsData.Sheet1 || destinationsData); // Thailand data has Sheet1 wrapper
+        setDestinations(destinationsData);
         setDistricts(districtsData.features || []);
         // Set default hub to first one
         if (hubsData.length > 0) {
@@ -51,7 +51,7 @@ function App() {
       });
   }, []);
 
-  // Handle hub selection from map (when clicking "Xem khu vá»±c phá»§ sÃ³ng")
+  // Handle hub selection from map (when clicking "Xem khu vực phủ sóng")
   useEffect(() => {
     const handleSelectHubFromMap = (event) => {
       const { hubId } = event.detail;
@@ -159,7 +159,7 @@ function App() {
       return [];
     }
 
-    console.log('ðŸ§® Starting distance calculation...');
+    console.log('🧮 Starting distance calculation...');
     console.log('Selected hub:', selectedHub.name);
     console.log('Destination IDs:', destIds);
 
@@ -180,7 +180,7 @@ function App() {
 
       // Check if destination has coordinates
       if (!dest.lat || !dest.long || dest.lat === '' || dest.long === '') {
-        console.warn(`âš ï¸ Destination "${dest.name}" missing coordinates (lat: "${dest.lat}", long: "${dest.long}")`);
+        console.warn(`⚠️ Destination "${dest.name}" missing coordinates (lat: "${dest.lat}", long: "${dest.long}")`);
         skippedDests.push(dest.name);
         continue;
       }
@@ -204,24 +204,24 @@ function App() {
             carrier_type: dest.carrier_type || 'N/A', // Add carrier type
             geometry: data.routes[0].geometry // Store geometry for map
           });
-          console.log(`âœ… Route calculated for ${dest.name}: ${(data.routes[0].distance / 1000).toFixed(2)} km`);
+          console.log(`✅ Route calculated for ${dest.name}: ${(data.routes[0].distance / 1000).toFixed(2)} km`);
         } else {
           console.warn(`No route found for ${dest.name}`);
         }
       } catch (error) {
-        console.error(`âŒ Error fetching route for ${dest.name}:`, error);
+        console.error(`❌ Error fetching route for ${dest.name}:`, error);
       }
     }
 
-    console.log(`ðŸ“Š Calculation complete: ${results.length} routes calculated, ${skippedDests.length} skipped`);
+    console.log(`📊 Calculation complete: ${results.length} routes calculated, ${skippedDests.length} skipped`);
 
     if (skippedDests.length > 0) {
-      console.warn('âš ï¸ Skipped destinations (missing coordinates):', skippedDests);
-      alert(`âš ï¸ Cáº¢NH BÃO: ${skippedDests.length}/${destIds.length} destinations khÃ´ng cÃ³ tá»a Ä‘á»™!\n\nBá»‹ bá» qua:\n${skippedDests.slice(0, 5).join('\n')}${skippedDests.length > 5 ? `\n... vÃ  ${skippedDests.length - 5} destinations khÃ¡c` : ''}\n\nVui lÃ²ng cáº­p nháº­t tá»a Ä‘á»™ (lat/long) trong file destinations.json`);
+      console.warn('⚠️ Skipped destinations (missing coordinates):', skippedDests);
+      alert(`⚠️ CẢNH BÁO: ${skippedDests.length}/${destIds.length} destinations không có tọa độ!\n\nBị bỏ qua:\n${skippedDests.slice(0, 5).join('\n')}${skippedDests.length > 5 ? `\n... và ${skippedDests.length - 5} destinations khác` : ''}\n\nVui lòng cập nhật tọa độ (lat/long) trong file destinations.json`);
     }
 
     if (results.length === 0) {
-      alert('âŒ KhÃ´ng thá»ƒ tÃ­nh khoáº£ng cÃ¡ch!\n\nTáº¥t cáº£ destinations Ä‘Æ°á»£c chá»n Ä‘á»u thiáº¿u tá»a Ä‘á»™ (lat/long).\n\nVui lÃ²ng cáº­p nháº­t file destinations.json vá»›i tá»a Ä‘á»™ chÃ­nh xÃ¡c.');
+      alert('❌ Không thể tính khoảng cách!\n\nTất cả destinations được chọn đều thiếu tọa độ (lat/long).\n\nVui lòng cập nhật file destinations.json với tọa độ chính xác.');
     }
 
     setCalculatedRoutes(results); // Store in state
@@ -291,7 +291,7 @@ function App() {
         }}>
           <div>
             <h1 style={{ margin: 0, fontSize: '24px', color: '#333' }}>
-              ðŸ—ºï¸ Logistics Hub Optimization - Thailand
+              🗺️ Logistics Hub Optimization - Thailand
             </h1>
             <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#666' }}>
               {selectedHub ? `${selectedHub.province_name} - ${selectedHub.name}` : 'Select a hub'}
@@ -305,7 +305,7 @@ function App() {
             fontSize: '14px',
             fontWeight: 'bold'
           }}>
-            {hubs.length} Hubs â€¢ {destinations.length} Destinations
+            {hubs.length} Hubs • {destinations.length} Destinations
           </div>
         </div>
 
