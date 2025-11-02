@@ -31,3 +31,6 @@ yarn-error.log*
 
 # Old frontend folder
 frontend/
+
+# Data exports (temporary analysis files)
+data_exports/

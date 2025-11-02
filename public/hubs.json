@@ -1,58 +1,58 @@
 [
-    {
-        "id": "hub_chachoengsao",
-        "name": "Hub Chachoengsao",
-        "province_name": "Chachoengsao",
-        "lat": 13.549220818894975,
-        "long": 101.61568540428799
-    },
-    {
-        "id": "hub_chonburi",
-        "name": "Hub Chonburi",
-        "province_name": "Chonburi",
-        "lat": 13.201998280506672,
-        "long": 101.25218298370363
-    },
-    {
-        "id": "hub_krungthep_maha_nakhon",
-        "name": "Hub Krungthep Maha Nakhon",
-        "province_name": "Krungthep Maha Nakhon",
-        "lat": 13.745730994874714,
-        "long": 100.50959359952904
-    },
-    {
-        "id": "hub_nonthaburi",
-        "name": "Hub Nonthaburi",
-        "province_name": "Nonthaburi",
-        "lat": 13.923547523438772,
-        "long": 100.39505822927005
-    },
-    {
-        "id": "hub_pathumthani",
-        "name": "Hub Pathumthani",
-        "province_name": "Pathumthani",
-        "lat": 14.007505555680536,
-        "long": 100.66456912958881
-    },
-    {
-        "id": "hub_rayong",
-        "name": "Hub Rayong",
-        "province_name": "Rayong",
-        "lat": 12.830743527432684,
-        "long": 101.4317738326603
-    },
-    {
-        "id": "hub_samut_prakan",
-        "name": "Hub samut Prakan",
-        "province_name": "Samut Prakan",
-        "lat": 13.633355245798278,
-        "long": 100.75514871939932
-    },
-    {
-        "id": "wh_thailand",
-        "name": "Thailand warehouse",
-        "province_name": "Samut Prakan",
-        "lat": 13.58801717199482,
-        "long": 100.79661359741812
-    }
+  {
+    "id": "hub_chachoengsao",
+    "name": "Hub Chachoengsao",
+    "province_name": "Chachoengsao",
+    "lat": 13.549220818894975,
+    "long": 101.61568540428799
+  },
+  {
+    "id": "hub_chonburi",
+    "name": "Hub Chonburi",
+    "province_name": "Chonburi",
+    "lat": 13.209532964182658,
+    "long": 101.25377068582746
+  },
+  {
+    "id": "hub_krungthep_maha_nakhon",
+    "name": "Hub Krungthep Maha Nakhon",
+    "province_name": "Krungthep Maha Nakhon",
+    "lat": 13.745730994874714,
+    "long": 100.50959359952904
+  },
+  {
+    "id": "hub_nonthaburi",
+    "name": "Hub Nonthaburi",
+    "province_name": "Nonthaburi",
+    "lat": 13.923547523438772,
+    "long": 100.39505822927005
+  },
+  {
+    "id": "hub_pathumthani",
+    "name": "Hub Pathumthani",
+    "province_name": "Pathumthani",
+    "lat": 14.007505555680536,
+    "long": 100.66456912958881
+  },
+  {
+    "id": "hub_rayong",
+    "name": "Hub Rayong",
+    "province_name": "Rayong",
+    "lat": 12.830743527432684,
+    "long": 101.4317738326603
+  },
+  {
+    "id": "hub_samut_prakan",
+    "name": "Hub samut Prakan",
+    "province_name": "Samut Prakan",
+    "lat": 13.633355245798278,
+    "long": 100.75514871939932
+  },
+  {
+    "id": "wh_thailand",
+    "name": "Thailand warehouse",
+    "province_name": "Samut Prakan",
+    "lat": 13.587985914616288,
+    "long": 100.79657067901536
+  }
 ]

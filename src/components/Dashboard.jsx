@@ -137,6 +137,13 @@ const Dashboard = ({
       alert('Vui lòng chọn ít nhất 1 điểm đến');
       return;
     }
+
+    // In cross-hub mode, check if user selected hub
+    if (showAllDestinations && !selectedHub) {
+      alert('⚠️ Trong chế độ xem tất cả destinations, vui lòng chọn 1 hub để tính khoảng cách');
+      return;
+    }
+
     setIsCalculating(true);
     const results = await onCalculateDistance(selectedDestinations);
     setCalculatedRoutes(results);
@@ -930,27 +937,27 @@ const Dashboard = ({
             {/* Calculate Button */}
             <button
               onClick={handleCalculate}
-              disabled={!selectedHub || isCalculating || selectedDestinations.length === 0}
+              disabled={isCalculating || selectedDestinations.length === 0}
               style={{
                 width: '100%',
                 padding: '12px',
-                backgroundColor: (!selectedHub || isCalculating || selectedDestinations.length === 0) ? '#ccc' : '#4264fb',
+                backgroundColor: (isCalculating || selectedDestinations.length === 0) ? '#ccc' : '#4264fb',
                 color: '#fff',
                 border: 'none',
                 borderRadius: '6px',
                 fontSize: '14px',
                 fontWeight: 'bold',
-                cursor: (!selectedHub || isCalculating || selectedDestinations.length === 0) ? 'not-allowed' : 'pointer',
+                cursor: (isCalculating || selectedDestinations.length === 0) ? 'not-allowed' : 'pointer',
                 marginBottom: '15px',
-                opacity: (!selectedHub || selectedDestinations.length === 0) ? 0.6 : 1
+                opacity: (selectedDestinations.length === 0) ? 0.6 : 1
               }}
             >
-              {!selectedHub
-                ? '⚠️ Chọn hub trước'
-                : isCalculating
-                  ? '⏳ Đang tính toán...'
-                  : selectedDestinations.length === 0
-                    ? '⚠️ Chọn destinations trước'
+              {isCalculating
+                ? '⏳ Đang tính toán...'
+                : selectedDestinations.length === 0
+                  ? '⚠️ Chọn destinations trước'
+                  : !selectedHub && showAllDestinations
+                    ? `⚠️ Chọn hub để tính (${selectedDestinations.length} destinations)`
                     : `🧮 Tính khoảng cách (${selectedDestinations.length})`}
             </button>
 

@@ -23,10 +23,15 @@
       "address": "Bang Nam Priao, Bang Nam Priao, Chachoengsao",
       "carrier_type": "2PL",
       "orders_per_month": 3,
-      "lat": 13.846009,
-      "long": 101.05617,
+      "lat": 13.822532858855185,
+      "long": 100.99804783394987,
       "hub_id": "hub_chachoengsao",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_date": "2025-11-02 21:20:25",
+      "geocoding_relevance": 0.624339,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Bang Nam Priao, Chachoengsao, Thailand",
+      "geocoding_note": "Manually geocoded by user - verified correct"
     },
     {
       "id": "dest_285",
@@ -37,10 +42,10 @@
       "address": "Don Chimphli, Bang Nam Priao, Chachoengsao",
       "carrier_type": "2PL",
       "orders_per_month": 13,
-      "lat": 13.871254741457179,
-      "long": 100.96996413481946,
+      "lat": 13.893966655094912,
+      "long": 100.95289061996566,
       "hub_id": "hub_chachoengsao",
-      "geocoding_note": "Potential duplicate with dest_284",
+      "geocoding_note": "Manually geocoded by user - verified correct",
       "geocoding_source": "manual"
     },
     {
@@ -67,10 +72,15 @@
       "address": "Bang Pakong, Bang Pakong, Chachoengsao",
       "carrier_type": "2PL",
       "orders_per_month": 21,
-      "lat": 13.500716,
-      "long": 100.989265,
+      "lat": 13.505713081564632,
+      "long": 100.99827626931629,
       "hub_id": "hub_chachoengsao",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_date": "2025-11-02 21:20:26",
+      "geocoding_relevance": 0.637037,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Bang Pakong, Chachoengsao, Thailand",
+      "geocoding_note": "Manually geocoded by user - verified correct"
     },
     {
       "id": "dest_288",
@@ -111,10 +121,10 @@
       "address": "Song Khlong, Bang Pakong, Chachoengsao",
       "carrier_type": "2PL",
       "orders_per_month": 1,
-      "lat": 13.496032784572344,
-      "long": 100.89616026362994,
+      "lat": 13.496253633869351,
+      "long": 100.89275445990624,
       "hub_id": "hub_chachoengsao",
-      "geocoding_note": "Potential duplicate with dest_287",
+      "geocoding_note": "Manually geocoded by user - verified correct",
       "geocoding_source": "manual"
     },
     {
@@ -144,7 +154,11 @@
       "lat": 13.683928,
       "long": 101.066216,
       "hub_id": "hub_chachoengsao",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:27",
+      "geocoding_relevance": 0.637037,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Mueang Chachoengsao, Chachoengsao, Thailand"
     },
     {
       "id": "dest_293",
@@ -214,10 +228,10 @@
       "address": "Phanom Sarakham, Phanom Sarakham, Chachoengsao",
       "carrier_type": "3PL",
       "orders_per_month": 5,
-      "lat": 13.74881096358526,
-      "long": 101.34545971514856,
+      "lat": 13.748407808704496,
+      "long": 101.34537909318557,
       "hub_id": "hub_chachoengsao",
-      "geocoding_note": "Potential duplicate with dest_295",
+      "geocoding_note": "Manually geocoded by user - verified correct",
       "geocoding_source": "manual"
     },
     {
@@ -243,10 +257,10 @@
       "address": "Plaeng Yao, Plaeng Yao, Chachoengsao",
       "carrier_type": "3PL",
       "orders_per_month": 8,
-      "lat": 13.604310957413587,
-      "long": 101.24614725776948,
+      "lat": 13.605215836253654,
+      "long": 101.2460244164578,
       "hub_id": "hub_chachoengsao",
-      "geocoding_note": "Potential duplicate with dest_298",
+      "geocoding_note": "Manually geocoded by user - verified correct",
       "geocoding_source": "manual"
     },
     {
@@ -258,10 +272,10 @@
       "address": "Wang Yen, Plaeng Yao, Chachoengsao",
       "carrier_type": "3PL",
       "orders_per_month": 1,
-      "lat": 13.58212910358576,
-      "long": 101.28179821090995,
+      "lat": 13.552309718027665,
+      "long": 101.30711145469931,
       "hub_id": "hub_chachoengsao",
-      "geocoding_note": "Potential duplicate with dest_298",
+      "geocoding_note": "Manually geocoded by user - verified correct",
       "geocoding_source": "manual"
     },
     {
@@ -273,10 +287,11 @@
       "address": "Dong Noi, Ratchasan, Chachoengsao",
       "carrier_type": "3PL",
       "orders_per_month": 1,
-      "lat": 13.81622,
-      "long": 101.304375,
+      "lat": 13.817638274302567,
+      "long": 101.30433159939712,
       "hub_id": "hub_chachoengsao",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_note": "Manually geocoded by user - verified correct"
     },
     {
       "id": "dest_302",
@@ -637,10 +652,15 @@
       "address": "Map Pong, Phanthong, Chonburi",
       "carrier_type": "2PL",
       "orders_per_month": 8,
-      "lat": 18.78525,
-      "long": 99.33403,
+      "lat": 13.45642083575688,
+      "long": 101.10132348207316,
       "hub_id": "hub_chonburi",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_date": "2025-11-02 21:20:28",
+      "geocoding_relevance": 0.46875,
+      "geocoding_accuracy": "POOR",
+      "geocoded_place_name": "Ban Mae Pong, Mae On, Chiang Mai, Thailand",
+      "geocoding_note": "Manually geocoded by user - verified correct"
     },
     {
       "id": "dest_327",
@@ -651,10 +671,15 @@
       "address": "Nong Tamlueng, Phanthong, Chonburi",
       "carrier_type": "2PL",
       "orders_per_month": 4,
-      "lat": 14.484734,
-      "long": 100.519742,
+      "lat": 13.407989657446802,
+      "long": 101.07661614526512,
       "hub_id": "hub_chonburi",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_date": "2025-11-02 21:20:30",
+      "geocoding_relevance": 0.388889,
+      "geocoding_accuracy": "POOR",
+      "geocoded_place_name": "Ban Nong, Bang Pahan, Phra Nakhon Si Ayutthaya, Thailand",
+      "geocoding_note": "Manually geocoded by user - verified correct"
     },
     {
       "id": "dest_328",
@@ -682,7 +707,11 @@
       "lat": 12.662622,
       "long": 100.89968,
       "hub_id": "hub_chonburi",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:31",
+      "geocoding_relevance": 0.580741,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Sattahip, Chon Buri, Thailand"
     },
     {
       "id": "dest_330",
@@ -696,7 +725,11 @@
       "lat": 12.857557,
       "long": 100.908759,
       "hub_id": "hub_chonburi",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:32",
+      "geocoding_relevance": 0.989037,
+      "geocoding_accuracy": "GOOD",
+      "geocoded_place_name": "Ban Na Chom Thian, Sattahip, Chon Buri, Thailand"
     },
     {
       "id": "dest_331",
@@ -710,7 +743,11 @@
       "lat": 12.738055,
       "long": 100.962513,
       "hub_id": "hub_chonburi",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:33",
+      "geocoding_relevance": 0.884764,
+      "geocoding_accuracy": "GOOD",
+      "geocoded_place_name": "ซอยพลูตาหลวง 43, 20180, Sattahip, Chon Buri, Thailand"
     },
     {
       "id": "dest_332",
@@ -1400,10 +1437,11 @@
       "address": "Lat Yao, Chatuchak, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 19,
-      "lat": 15.750865,
-      "long": 99.78981,
+      "lat": 13.758205,
+      "long": 100.509097,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (15.750865, 99.78981) - improved by 234.6 km"
     },
     {
       "id": "dest_380",
@@ -1875,10 +1913,11 @@
       "address": "Lat Phrao, Lat Phrao, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 25,
-      "lat": 18.143108,
-      "long": 100.14114,
+      "lat": 13.803767,
+      "long": 100.59073,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (18.143108, 100.14114) - improved by 479.6 km"
     },
     {
       "id": "dest_413",
@@ -2208,10 +2247,11 @@
       "address": "Nong Bon, Prawet, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 26,
-      "lat": 16.2629,
-      "long": 103.008785,
+      "lat": 13.733774,
+      "long": 100.518585,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (16.2629, 103.008785) - improved by 386.2 km"
     },
     {
       "id": "dest_436",
@@ -2337,10 +2377,11 @@
       "address": "Thung Maha Mek, Sathorn, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 3,
-      "lat": 20.286967,
-      "long": 100.219603,
+      "lat": 13.733774,
+      "long": 100.518585,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (20.286967, 100.219603) - improved by 726.4 km"
     },
     {
       "id": "dest_445",
@@ -2351,10 +2392,15 @@
       "address": "Thung Wat Don, Sathorn, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 34,
-      "lat": 7.104411,
-      "long": 99.75489,
+      "lat": 13.705615990170882,
+      "long": 100.52016260112329,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_note": "Manually geocoded by user - verified correct",
+      "geocoding_date": "2025-11-02 21:20:34",
+      "geocoding_relevance": 0.548995,
+      "geocoding_accuracy": "POOR",
+      "geocoded_place_name": "Ban Don, Sawang Daen Din, Sakon Nakhon, Thailand"
     },
     {
       "id": "dest_446",
@@ -2463,10 +2509,11 @@
       "address": "Taling Chan, Taling Chan, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 19,
-      "lat": 6.979645,
-      "long": 100.768682,
+      "lat": 13.733774,
+      "long": 100.518585,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (6.979645, 100.768682) - improved by 751.3 km"
     },
     {
       "id": "dest_454",
@@ -2506,10 +2553,11 @@
       "address": "Talat Phlu, Thonburi, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 6,
-      "lat": 19.523123,
-      "long": 100.305975,
+      "lat": 13.733774,
+      "long": 100.518585,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (19.523123, 100.305975) - improved by 641.2 km"
     },
     {
       "id": "dest_457",
@@ -2608,10 +2656,14 @@
       "address": "Khlong Tan Nuea, Watthana, Krungthep Maha Nakhon",
       "carrier_type": "2PL",
       "orders_per_month": 4,
-      "lat": 14.300254,
-      "long": 99.873529,
+      "lat": 14.461381,
+      "long": 100.516823,
       "hub_id": "hub_krungthep_maha_nakhon",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:36",
+      "geocoding_relevance": 0.569577,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Ban Khlong San, Bang Pahan, Phra Nakhon Si Ayutthaya, Thailand"
     },
     {
       "id": "dest_464",
@@ -3482,10 +3534,14 @@
       "address": "Ban Mai, Mueang Pathumthani, Pathumthani",
       "carrier_type": "3PL",
       "orders_per_month": 7,
-      "lat": 14.468695,
-      "long": 100.723986,
+      "lat": 13.996683,
+      "long": 100.668089,
       "hub_id": "hub_pathumthani",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_smart",
+      "geocoding_date": "2025-11-02 21:20:37",
+      "geocoding_relevance": 0.537185,
+      "geocoding_accuracy": "FAIR",
+      "geocoded_place_name": "Mai, Thanyaburi, Pathum Thani, Thailand"
     },
     {
       "id": "dest_524",
@@ -3496,10 +3552,11 @@
       "address": "Bang Duea, Mueang Pathumthani, Pathumthani",
       "carrier_type": "3PL",
       "orders_per_month": 40,
-      "lat": 19.245548,
-      "long": 97.94167,
+      "lat": 14.43379,
+      "long": 100.578315,
       "hub_id": "hub_pathumthani",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (19.245548, 97.94167) - improved by 602.3 km"
     },
     {
       "id": "dest_525",
@@ -3524,10 +3581,11 @@
       "address": "Bang Khu Wat, Mueang Pathumthani, Pathumthani",
       "carrier_type": "3PL",
       "orders_per_month": 23,
-      "lat": 7.955749,
-      "long": 98.380109,
+      "lat": 13.852445,
+      "long": 100.40195,
       "hub_id": "hub_pathumthani",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "mapbox_api_fixed",
+      "geocoding_note": "Fixed from (7.955749, 98.380109) - improved by 684.4 km"
     },
     {
       "id": "dest_527",
@@ -3567,10 +3625,15 @@
       "address": "Lak Hok, Mueang Pathumthani, Pathumthani",
       "carrier_type": "3PL",
       "orders_per_month": 9,
-      "lat": 20.010631,
-      "long": 100.352275,
+      "lat": 13.962656990533734,
+      "long": 100.58463127315821,
       "hub_id": "hub_pathumthani",
-      "geocoding_source": "mapbox_api"
+      "geocoding_source": "manual",
+      "geocoding_note": "Manually geocoded by user - verified correct",
+      "geocoding_date": "2025-11-02 21:20:38",
+      "geocoding_relevance": 0.366667,
+      "geocoding_accuracy": "POOR",
+      "geocoded_place_name": "Ban Hok, Chiang Khong, Chiang Rai, Thailand"
     },
     {
       "id": "dest_530",

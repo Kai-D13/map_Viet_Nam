@@ -65,7 +65,7 @@ const Map = ({
   const hubTerritoryLayerRef = useRef(null);
   const boundaryLayersRef = useRef([]); // District boundary layers
   const [mapLoaded, setMapLoaded] = useState(false); // Track map load state
-  const initialCenter = [104.9, 12.5]; // Center of Cambodia
+  const initialCenter = [100.5, 13.7]; // Center of Thailand (Bangkok area)
   const initialZoom = 6.5;
 
   // Initialize map
@@ -376,7 +376,7 @@ const Map = ({
                     📍 <strong>Địa chỉ:</strong>
                   </div>
                   <div style="font-size: 12px; color: #333; margin-left: 20px;">
-                    ${hub.address || `${hub.province_name}, Cambodia`}
+                    ${hub.address || `${hub.province_name}, Thailand`}
                   </div>
                 </div>
 
