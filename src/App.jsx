@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Map from './components/Map'
 import Dashboard from './components/Dashboard'
 import PasswordProtection from './components/PasswordProtection'
+import CountrySwitcher from './components/CountrySwitcher'
 import './App.css'
 import mapboxgl from 'mapbox-gl'
 
@@ -275,6 +276,9 @@ function App() {
 
       {/* Map Container */}
       <div style={{ flex: 1, position: 'relative' }}>
+        {/* Country Switcher */}
+        <CountrySwitcher currentCountry="thailand" />
+
         {/* Header */}
         <div style={{
           position: 'absolute',

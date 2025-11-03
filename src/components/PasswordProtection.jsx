@@ -28,41 +28,8 @@ const PasswordProtection = ({ children }) => {
     }
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    sessionStorage.removeItem('logistics_auth');
-    setPassword('');
-  };
-
   if (isAuthenticated) {
-    return (
-      <>
-        {children}
-        <button
-          onClick={handleLogout}
-          style={{
-            position: 'fixed',
-            top: '10px',
-            right: '200px',
-            padding: '8px 16px',
-            backgroundColor: '#dc3545',
-            color: 'white',
-            border: 'none',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontSize: '14px',
-            fontWeight: 'bold',
-            zIndex: 10000,
-            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-            transition: 'all 0.2s'
-          }}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#c82333'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#dc3545'}
-        >
-          🚪 Đăng xuất
-        </button>
-      </>
-    );
+    return <>{children}</>;
   }
 
   return (
