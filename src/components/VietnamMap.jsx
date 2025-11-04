@@ -142,55 +142,54 @@ const VietnamMap = ({
         data: heatmapData
       });
 
-      // Add heatmap layer (ENHANCED - Same as Thailand system)
+      // Add heatmap layer (ORIGINAL VERSION - Better visualization)
       map.current.addLayer({
         id: 'heatmap-layer',
         type: 'heatmap',
         source: 'destinations-heat',
         paint: {
-          // Increase weight based on orders - VIETNAM DATA (max 1135)
+          // Increase weight based on orders
           'heatmap-weight': [
             'interpolate',
             ['linear'],
             ['get', 'orders'],
-            0, 0.3,     // Min weight to make all points visible
-            100, 0.7,   // Medium orders
-            1135, 1     // Max orders (Vietnam has higher orders than Thailand)
+            0, 0,
+            1135, 1 // Max orders from data
           ],
-          // Increase intensity as zoom level increases - HIGHER for glow effect
+          // Increase intensity as zoom level increases
           'heatmap-intensity': [
             'interpolate',
             ['linear'],
             ['zoom'],
-            5, 1.5,   // Increased from 1 to 1.5
-            10, 3,    // Increased from 2.5 to 3
-            15, 4     // Increased from 3 to 4
+            5, 1,
+            10, 2.5,
+            15, 3
           ],
-          // Color ramp: Kepler.gl style - Red → Orange → Yellow glow (MORE VISIBLE)
+          // Color ramp: Kepler.gl style - Red → Orange → Yellow glow
           'heatmap-color': [
             'interpolate',
             ['linear'],
             ['heatmap-density'],
             0, 'rgba(0,0,0,0)',           // Transparent
-            0.05, 'rgba(139,0,0,0.5)',    // Dark Red - INCREASED opacity from 0.3 to 0.5
-            0.15, 'rgba(178,34,34,0.6)',  // Firebrick - INCREASED
-            0.25, 'rgba(220,20,60,0.7)',  // Crimson - INCREASED
-            0.35, 'rgba(255,69,0,0.75)',  // Red-Orange - INCREASED
-            0.45, 'rgba(255,99,71,0.8)',  // Tomato - INCREASED
-            0.55, 'rgba(255,140,0,0.85)', // Dark Orange - INCREASED
-            0.65, 'rgba(255,165,0,0.9)',  // Orange - INCREASED
-            0.75, 'rgba(255,215,0,0.93)', // Gold - INCREASED
-            0.85, 'rgba(255,255,0,0.97)', // Yellow - INCREASED
+            0.1, 'rgba(139,0,0,0.3)',     // Dark Red (faint)
+            0.2, 'rgba(178,34,34,0.4)',   // Firebrick
+            0.3, 'rgba(220,20,60,0.5)',   // Crimson
+            0.4, 'rgba(255,69,0,0.6)',    // Red-Orange
+            0.5, 'rgba(255,99,71,0.7)',   // Tomato
+            0.6, 'rgba(255,140,0,0.8)',   // Dark Orange
+            0.7, 'rgba(255,165,0,0.85)',  // Orange
+            0.8, 'rgba(255,215,0,0.9)',   // Gold
+            0.9, 'rgba(255,255,0,0.95)',  // Yellow
             1, 'rgba(255,255,224,1)'      // Light Yellow (brightest glow)
           ],
-          // Adjust radius by zoom level - LARGER for glow effect
+          // Adjust radius by zoom level
           'heatmap-radius': [
             'interpolate',
             ['linear'],
             ['zoom'],
-            5, 30,    // Increased from 25 to 30
-            10, 50,   // Increased from 40 to 50
-            15, 70    // Increased from 60 to 70
+            5, 25,
+            10, 40,
+            15, 60
           ],
           // Transition from heatmap to circle layer by zoom level
           'heatmap-opacity': [
