@@ -1054,68 +1054,237 @@ const Dashboard = ({
         ) : (
           /* Settings Tab */
           <div>
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '12px',
-                backgroundColor: '#fff',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                border: '1px solid #e9ecef'
-              }}>
-                <input
-                  type="checkbox"
-                  checked={showHeatmap}
-                  onChange={(e) => onToggleHeatmap(e.target.checked)}
-                  style={{ marginRight: '10px' }}
-                />
-                <span style={{ fontSize: '14px', color: '#333' }}>
-                  🔥 Hiển thị Heatmap (Kepler.gl style)
-                </span>
-              </label>
+            {/* Map Layers Section */}
+            <div style={{
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              padding: '15px',
+              marginBottom: '15px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            }}>
+              <h3 style={{ margin: '0 0 15px 0', fontSize: '16px', color: '#333' }}>
+                🗺️ Map Layers
+              </h3>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {/* Heatmap Toggle */}
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '12px',
+                  backgroundColor: showHeatmap ? '#fff3cd' : '#f8f9fa',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  border: showHeatmap ? '2px solid #ffc107' : '1px solid #e9ecef',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={showHeatmap}
+                    onChange={(e) => onToggleHeatmap(e.target.checked)}
+                    style={{ marginRight: '10px', width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '14px', color: '#333', fontWeight: showHeatmap ? 'bold' : 'normal' }}>
+                      🔥 Show Heatmap
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+                      Kepler.gl style - Red → Orange → Yellow
+                    </div>
+                  </div>
+                </label>
+
+                {/* Clusters Toggle - NEW */}
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '12px',
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  border: '1px solid #e9ecef',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={true}
+                    disabled={true}
+                    style={{ marginRight: '10px', width: '18px', height: '18px' }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '14px', color: '#333' }}>
+                      📍 Show Clusters
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+                      Always ON - Grouping nearby destinations
+                    </div>
+                  </div>
+                </label>
+
+                {/* District Boundaries Toggle */}
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '12px',
+                  backgroundColor: showBoundaries ? '#e7f3ff' : '#f8f9fa',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  border: showBoundaries ? '2px solid #4264fb' : '1px solid #e9ecef',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={showBoundaries}
+                    onChange={(e) => onToggleBoundaries(e.target.checked)}
+                    style={{ marginRight: '10px', width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '14px', color: '#333', fontWeight: showBoundaries ? 'bold' : 'normal' }}>
+                      🗺️ Show District Boundaries
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+                      Administrative borders overlay
+                    </div>
+                  </div>
+                </label>
+
+                {/* Routes Toggle */}
+                <label style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '12px',
+                  backgroundColor: showRoutes ? '#d4edda' : '#f8f9fa',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  border: showRoutes ? '2px solid #28a745' : '1px solid #e9ecef',
+                  transition: 'all 0.2s'
+                }}>
+                  <input
+                    type="checkbox"
+                    checked={showRoutes}
+                    onChange={(e) => onToggleRoutes(e.target.checked)}
+                    style={{ marginRight: '10px', width: '18px', height: '18px', cursor: 'pointer' }}
+                  />
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: '14px', color: '#333', fontWeight: showRoutes ? 'bold' : 'normal' }}>
+                      🛣️ Show Routes
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+                      Calculated route lines from hub
+                    </div>
+                  </div>
+                </label>
+              </div>
             </div>
-            <div style={{ marginBottom: '15px' }}>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '12px',
-                backgroundColor: '#fff',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                border: '1px solid #e9ecef'
-              }}>
-                <input
-                  type="checkbox"
-                  checked={showBoundaries}
-                  onChange={(e) => onToggleBoundaries(e.target.checked)}
-                  style={{ marginRight: '10px' }}
-                />
-                <span style={{ fontSize: '14px', color: '#333' }}>
-                  Hiển thị ranh giới quận
-                </span>
-              </label>
-            </div>
-            <div>
-              <label style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '12px',
-                backgroundColor: '#fff',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                border: '1px solid #e9ecef'
-              }}>
-                <input
-                  type="checkbox"
-                  checked={showRoutes}
-                  onChange={(e) => onToggleRoutes(e.target.checked)}
-                  style={{ marginRight: '10px' }}
-                />
-                <span style={{ fontSize: '14px', color: '#333' }}>
-                  Hiển thị tuyến đường
-                </span>
-              </label>
+
+            {/* Legend Section */}
+            <div style={{
+              backgroundColor: '#fff',
+              borderRadius: '8px',
+              padding: '15px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            }}>
+              <h3 style={{ margin: '0 0 15px 0', fontSize: '16px', color: '#333' }}>
+                📖 Legend
+              </h3>
+
+              {showHeatmap && (
+                <div style={{ marginBottom: '15px' }}>
+                  <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px', fontWeight: 'bold' }}>
+                    Heatmap Intensity
+                  </div>
+                  <div style={{
+                    height: '20px',
+                    background: 'linear-gradient(to right, rgba(139,0,0,0.4), rgba(220,20,60,0.6), rgba(255,99,71,0.7), rgba(255,165,0,0.85), rgba(255,215,0,0.9), rgba(255,255,224,1))',
+                    borderRadius: '4px',
+                    marginBottom: '5px',
+                    boxShadow: '0 0 15px rgba(255,165,0,0.6)'
+                  }}></div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#666' }}>
+                    <span>Low</span>
+                    <span>High</span>
+                  </div>
+                </div>
+              )}
+
+              <div style={{ marginBottom: '15px' }}>
+                <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px', fontWeight: 'bold' }}>
+                  Cluster Size
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '24px',
+                      height: '24px',
+                      borderRadius: '50%',
+                      backgroundColor: '#51bbd6',
+                      border: '2px solid #fff',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>{'< 10 destinations'}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      backgroundColor: '#f1f075',
+                      border: '2px solid #fff',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>10 - 30 destinations</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      backgroundColor: '#f28cb1',
+                      border: '2px solid #fff',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>{'>'}30 destinations</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <div style={{ fontSize: '12px', color: '#666', marginBottom: '5px', fontWeight: 'bold' }}>
+                  Carrier Types
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '12px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      backgroundColor: '#dc3545',
+                      border: '1px solid #fff'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>1PL (Own fleet)</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '12px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      backgroundColor: '#4264fb',
+                      border: '1px solid #fff'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>2PL (Transport service)</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <div style={{
+                      width: '12px',
+                      height: '12px',
+                      borderRadius: '50%',
+                      backgroundColor: '#ff8c00',
+                      border: '1px solid #fff'
+                    }}></div>
+                    <span style={{ fontSize: '11px', color: '#666' }}>3PL (Third-party logistics)</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
