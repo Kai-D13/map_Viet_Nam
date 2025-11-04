@@ -53,6 +53,7 @@ const Map = ({
   selectedDestinations,
   showBoundaries,
   showRoutes,
+  showHeatmap,
   calculatedRoutes,
   carrierTypeFilter,
   distanceFilter
@@ -74,7 +75,7 @@ const Map = ({
 
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: 'mapbox://styles/mapbox/dark-v11', // Dark theme like Kepler.gl
       center: initialCenter,
       zoom: initialZoom
     });
@@ -87,6 +88,15 @@ const Map = ({
       console.log('🗺️ Map loaded successfully');
       setMapLoaded(true); // Set map loaded state
 
+      // Add heatmap source (separate from clustering)
+      map.current.addSource('destinations-heat', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: []
+        }
+      });
+
       // Add destinations source with clustering
       map.current.addSource('destinations', {
         type: 'geojson',
@@ -98,6 +108,67 @@ const Map = ({
         clusterMaxZoom: 14,
         clusterRadius: 50
       });
+
+      // Add heatmap layer (Kepler.gl style - Red → Orange → Yellow)
+      map.current.addLayer({
+        id: 'heatmap-layer',
+        type: 'heatmap',
+        source: 'destinations-heat',
+        paint: {
+          // Increase weight based on orders
+          'heatmap-weight': [
+            'interpolate',
+            ['linear'],
+            ['get', 'orders'],
+            0, 0,
+            100, 1 // Max orders for Thailand
+          ],
+          // Increase intensity as zoom level increases - HIGHER for glow effect
+          'heatmap-intensity': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            5, 1,
+            10, 2.5,
+            15, 3
+          ],
+          // Color ramp: Kepler.gl style - Red → Orange → Yellow glow
+          'heatmap-color': [
+            'interpolate',
+            ['linear'],
+            ['heatmap-density'],
+            0, 'rgba(0,0,0,0)',           // Transparent
+            0.1, 'rgba(139,0,0,0.3)',     // Dark Red (faint)
+            0.2, 'rgba(178,34,34,0.4)',   // Firebrick
+            0.3, 'rgba(220,20,60,0.5)',   // Crimson
+            0.4, 'rgba(255,69,0,0.6)',    // Red-Orange
+            0.5, 'rgba(255,99,71,0.7)',   // Tomato
+            0.6, 'rgba(255,140,0,0.8)',   // Dark Orange
+            0.7, 'rgba(255,165,0,0.85)',  // Orange
+            0.8, 'rgba(255,215,0,0.9)',   // Gold
+            0.9, 'rgba(255,255,0,0.95)',  // Yellow
+            1, 'rgba(255,255,224,1)'      // Light Yellow (brightest glow)
+          ],
+          // Adjust radius by zoom level - LARGER for glow effect
+          'heatmap-radius': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            5, 25,
+            10, 40,
+            15, 60
+          ],
+          // Transition from heatmap to circle layer by zoom level
+          'heatmap-opacity': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            7, 1,
+            13, 0.7,
+            15, 0.3
+          ]
+        }
+      }, 'clusters'); // Insert before clusters layer
 
       // Cluster circles
       map.current.addLayer({
@@ -559,6 +630,32 @@ const Map = ({
       });
     }
 
+    // Update heatmap source (only if showHeatmap is true)
+    const heatSource = map.current.getSource('destinations-heat');
+    if (heatSource) {
+      if (showHeatmap) {
+        // Create heatmap features with orders property
+        const heatFeatures = features.map(f => ({
+          type: 'Feature',
+          properties: {
+            orders: f.properties.orders_per_month || 0
+          },
+          geometry: f.geometry
+        }));
+
+        heatSource.setData({
+          type: 'FeatureCollection',
+          features: heatFeatures
+        });
+      } else {
+        // Clear heatmap when disabled
+        heatSource.setData({
+          type: 'FeatureCollection',
+          features: []
+        });
+      }
+    }
+
     // Fit bounds to show all destinations
     if (features.length > 0 && selectedHub) {
       try {
@@ -592,7 +689,7 @@ const Map = ({
         console.warn('Error fitting bounds:', error);
       }
     }
-  }, [destinations, selectedHub, selectedDestinations, carrierTypeFilter, distanceFilter]);
+  }, [destinations, selectedHub, selectedDestinations, carrierTypeFilter, distanceFilter, showHeatmap]);
 
   // Draw distance circle (filter radius)
   useEffect(() => {

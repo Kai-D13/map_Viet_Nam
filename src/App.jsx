@@ -20,6 +20,7 @@ function App() {
   const [selectedDestinations, setSelectedDestinations] = useState([]);
   const [showBoundaries, setShowBoundaries] = useState(true);
   const [showRoutes, setShowRoutes] = useState(true);
+  const [showHeatmap, setShowHeatmap] = useState(true); // Heatmap toggle
   const [calculatedRoutes, setCalculatedRoutes] = useState([]); // Store calculated routes
 
   // Filter states
@@ -272,6 +273,8 @@ function App() {
         onToggleBoundaries={setShowBoundaries}
         showRoutes={showRoutes}
         onToggleRoutes={setShowRoutes}
+        showHeatmap={showHeatmap}
+        onToggleHeatmap={setShowHeatmap}
       />
 
       {/* Map Container */}
@@ -323,6 +326,7 @@ function App() {
             selectedDestinations={selectedDestinations}
             showBoundaries={showBoundaries}
             showRoutes={showRoutes}
+            showHeatmap={showHeatmap}
             calculatedRoutes={calculatedRoutes}
             carrierTypeFilter={carrierTypeFilter}
             distanceFilter={distanceFilter}

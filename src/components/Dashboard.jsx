@@ -23,7 +23,9 @@ const Dashboard = ({
   showBoundaries,
   onToggleBoundaries,
   showRoutes,
-  onToggleRoutes
+  onToggleRoutes,
+  showHeatmap,
+  onToggleHeatmap
 }) => {
   const [calculatedRoutes, setCalculatedRoutes] = useState([]);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -1052,6 +1054,27 @@ const Dashboard = ({
         ) : (
           /* Settings Tab */
           <div>
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{
+                display: 'flex',
+                alignItems: 'center',
+                padding: '12px',
+                backgroundColor: '#fff',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                border: '1px solid #e9ecef'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={showHeatmap}
+                  onChange={(e) => onToggleHeatmap(e.target.checked)}
+                  style={{ marginRight: '10px' }}
+                />
+                <span style={{ fontSize: '14px', color: '#333' }}>
+                  🔥 Hiển thị Heatmap (Kepler.gl style)
+                </span>
+              </label>
+            </div>
             <div style={{ marginBottom: '15px' }}>
               <label style={{
                 display: 'flex',
