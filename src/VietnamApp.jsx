@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import VietnamMap from './components/VietnamMap';
 import VietnamDashboard from './components/VietnamDashboard';
 import RouteManagement from './components/RouteManagement';
+import FulfillmentAnalytics from './components/FulfillmentAnalytics';
 import PasswordProtection from './components/PasswordProtection';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
@@ -10,7 +11,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpZHJvZ2VyIiwiYSI6ImNtaDM4bnB2cjBuN28ybnM5N
 
 function VietnamApp() {
   // Tab state
-  const [activeTab, setActiveTab] = useState('heatmap'); // 'heatmap' or 'routes'
+  const [activeTab, setActiveTab] = useState('heatmap'); // 'heatmap', 'routes', or 'analytics'
 
   // Data states
   const [destinations, setDestinations] = useState([]);
@@ -171,10 +172,28 @@ function VietnamApp() {
           >
             🚚 Route Management
           </button>
+          <button
+            onClick={() => setActiveTab('analytics')}
+            style={{
+              padding: '15px 30px',
+              backgroundColor: activeTab === 'analytics' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: activeTab === 'analytics' ? 'bold' : 'normal',
+              transition: 'all 0.3s',
+              borderBottom: activeTab === 'analytics' ? '3px solid #60a5fa' : '3px solid transparent'
+            }}
+          >
+            📦 Fulfillment Analytics
+          </button>
         </div>
 
         {/* Tab Content */}
-        {activeTab === 'heatmap' ? (
+        {activeTab === 'analytics' ? (
+          <FulfillmentAnalytics />
+        ) : activeTab === 'heatmap' ? (
           <div style={{ display: 'flex', height: 'calc(100vh - 53px)', overflow: 'hidden' }}>
             {/* Dashboard Sidebar */}
             <VietnamDashboard
