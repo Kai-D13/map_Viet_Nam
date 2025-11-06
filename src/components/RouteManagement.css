@@ -1,0 +1,103 @@
+.route-management {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f3f4f6;
+}
+
+.route-management.loading,
+.route-management.error {
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-spinner {
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.error-message h2 {
+  color: #ef4444;
+  margin-bottom: 10px;
+}
+
+.route-header {
+  background: white;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.route-header h1 {
+  margin: 0 0 15px 0;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.route-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.route-content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.route-overview {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  flex: 1;
+  min-height: 0;
+  gap: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1200px) {
+  .route-overview {
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 1fr;
+  }
+}
+

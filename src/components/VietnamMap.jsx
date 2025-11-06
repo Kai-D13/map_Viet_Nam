@@ -541,7 +541,7 @@ const VietnamMap = ({
       let hoveredDistrictId = null;
 
       map.current.on('mousemove', 'district-fills', (e) => {
-        if (e.features.length > 0) {
+        if (e.features.length > 0 && e.features[0].id !== undefined) {
           if (hoveredDistrictId !== null) {
             map.current.setFeatureState(
               { source: 'districts', id: hoveredDistrictId },

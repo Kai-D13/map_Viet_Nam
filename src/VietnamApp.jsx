@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import VietnamMap from './components/VietnamMap';
 import VietnamDashboard from './components/VietnamDashboard';
+import RouteManagement from './components/RouteManagement';
 import PasswordProtection from './components/PasswordProtection';
 import './App.css';
 import mapboxgl from 'mapbox-gl';
@@ -8,6 +9,9 @@ import mapboxgl from 'mapbox-gl';
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2FpZHJvZ2VyIiwiYSI6ImNtaDM4bnB2cjBuN28ybnM5NmV0ZTluZHEifQ.YHW9Erg1h5egssNhthQiZw';
 
 function VietnamApp() {
+  // Tab state
+  const [activeTab, setActiveTab] = useState('heatmap'); // 'heatmap' or 'routes'
+
   // Data states
   const [destinations, setDestinations] = useState([]);
   const [districts, setDistricts] = useState(null);
@@ -127,77 +131,121 @@ function VietnamApp() {
 
   return (
     <PasswordProtection>
-      <div style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden' }}>
-        {/* Dashboard Sidebar */}
-        <VietnamDashboard
-          destinations={destinations}
-          showBoundaries={showBoundaries}
-          onToggleBoundaries={setShowBoundaries}
-          showHeatmap={showHeatmap}
-          onToggleHeatmap={setShowHeatmap}
-          showClusters={showClusters}
-          onToggleClusters={setShowClusters}
-          showMarkers={showMarkers}
-          onToggleMarkers={setShowMarkers}
-          provinceFilter={provinceFilter}
-          onProvinceFilterChange={setProvinceFilter}
-          minOrders={minOrders}
-          maxOrders={maxOrders}
-          onMinOrdersChange={setMinOrders}
-          onMaxOrdersChange={setMaxOrders}
-        />
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', width: '100vw', overflow: 'hidden' }}>
+        {/* Tab Navigation */}
+        <div style={{
+          display: 'flex',
+          backgroundColor: '#1f2937',
+          borderBottom: '2px solid #374151',
+          zIndex: 2000
+        }}>
+          <button
+            onClick={() => setActiveTab('heatmap')}
+            style={{
+              padding: '15px 30px',
+              backgroundColor: activeTab === 'heatmap' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: activeTab === 'heatmap' ? 'bold' : 'normal',
+              transition: 'all 0.3s',
+              borderBottom: activeTab === 'heatmap' ? '3px solid #60a5fa' : '3px solid transparent'
+            }}
+          >
+            📊 Heatmap & Clustering
+          </button>
+          <button
+            onClick={() => setActiveTab('routes')}
+            style={{
+              padding: '15px 30px',
+              backgroundColor: activeTab === 'routes' ? '#3b82f6' : 'transparent',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: activeTab === 'routes' ? 'bold' : 'normal',
+              transition: 'all 0.3s',
+              borderBottom: activeTab === 'routes' ? '3px solid #60a5fa' : '3px solid transparent'
+            }}
+          >
+            🚚 Route Management
+          </button>
+        </div>
 
-        {/* Map Container */}
-        <div style={{ flex: 1, position: 'relative' }}>
-          {/* Header */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-            padding: '15px 20px',
-            zIndex: 1000,
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}>
-            <div>
-              <h1 style={{ margin: 0, fontSize: '24px', color: '#333' }}>
-                🇻🇳 Vietnam Logistics Heatmap
-              </h1>
-              <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#666' }}>
-                Order Distribution & Clustering Analysis
-              </p>
-            </div>
-            <div style={{
-              display: 'flex',
-              gap: '15px',
-              alignItems: 'center',
-              marginRight: '10px' // Add margin to avoid edge
-            }}>
+        {/* Tab Content */}
+        {activeTab === 'heatmap' ? (
+          <div style={{ display: 'flex', height: 'calc(100vh - 53px)', overflow: 'hidden' }}>
+            {/* Dashboard Sidebar */}
+            <VietnamDashboard
+              destinations={destinations}
+              showBoundaries={showBoundaries}
+              onToggleBoundaries={setShowBoundaries}
+              showHeatmap={showHeatmap}
+              onToggleHeatmap={setShowHeatmap}
+              showClusters={showClusters}
+              onToggleClusters={setShowClusters}
+              showMarkers={showMarkers}
+              onToggleMarkers={setShowMarkers}
+              provinceFilter={provinceFilter}
+              onProvinceFilterChange={setProvinceFilter}
+              minOrders={minOrders}
+              maxOrders={maxOrders}
+              onMinOrdersChange={setMinOrders}
+              onMaxOrdersChange={setMaxOrders}
+            />
+
+            {/* Map Container */}
+            <div style={{ flex: 1, position: 'relative' }}>
+              {/* Header */}
               <div style={{
-                backgroundColor: '#4264fb',
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: 'bold'
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                padding: '15px 20px',
+                zIndex: 1000,
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
               }}>
-                {validDestinations.length.toLocaleString()} Destinations
-              </div>
-              <div style={{
-                backgroundColor: '#28a745',
-                color: 'white',
-                padding: '8px 16px',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: 'bold'
-              }}>
-                {totalOrders.toLocaleString()} Orders
-              </div>
-            </div>
+                <div>
+                  <h1 style={{ margin: 0, fontSize: '24px', color: '#333' }}>
+                    🇻🇳 Vietnam Logistics Heatmap
+                  </h1>
+                  <p style={{ margin: '5px 0 0 0', fontSize: '14px', color: '#666' }}>
+                    Order Distribution & Clustering Analysis
+                  </p>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  gap: '15px',
+                  alignItems: 'center',
+                  marginRight: '10px'
+                }}>
+                  <div style={{
+                    backgroundColor: '#4264fb',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: 'bold'
+                  }}>
+                    {validDestinations.length.toLocaleString()} Destinations
+                  </div>
+                  <div style={{
+                    backgroundColor: '#28a745',
+                    color: 'white',
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: 'bold'
+                  }}>
+                    {totalOrders.toLocaleString()} Orders
+                  </div>
+                </div>
           </div>
 
           {/* Map */}
@@ -333,7 +381,11 @@ function VietnamApp() {
               </div>
             )}
           </div>
-        </div>
+            </div>
+          </div>
+        ) : (
+          <RouteManagement />
+        )}
       </div>
     </PasswordProtection>
   );
