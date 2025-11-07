@@ -6,6 +6,32 @@ export function processLogisticsData(rawData) {
     return null;
   }
 
+  // Helper function: Calculate median
+  const calculateMedian = (values) => {
+    if (values.length === 0) return 0;
+    const sorted = [...values].sort((a, b) => a - b);
+    const mid = Math.floor(sorted.length / 2);
+    return sorted.length % 2 === 0
+      ? (sorted[mid - 1] + sorted[mid]) / 2
+      : sorted[mid];
+  };
+
+  // Helper function: Remove outliers using IQR method
+  const removeOutliers = (values) => {
+    if (values.length < 4) return values; // Need at least 4 values for IQR
+    
+    const sorted = [...values].sort((a, b) => a - b);
+    const q1Index = Math.floor(sorted.length * 0.25);
+    const q3Index = Math.floor(sorted.length * 0.75);
+    const q1 = sorted[q1Index];
+    const q3 = sorted[q3Index];
+    const iqr = q3 - q1;
+    const lowerBound = q1 - 1.5 * iqr;
+    const upperBound = q3 + 1.5 * iqr;
+    
+    return values.filter(v => v >= lowerBound && v <= upperBound);
+  };
+
   // Filter out rows with missing fc_code
   const validData = rawData.filter(row => row.fc_code && row.fc_code.trim() !== '');
 
@@ -55,40 +81,146 @@ export function processLogisticsData(rawData) {
   const uniqueDistricts = new Set(validData.map(row => row.district_name).filter(Boolean));
   const uniqueWards = new Set(validData.map(row => row.ward_name).filter(Boolean));
 
-  // Calculate FC (Warehouse) performance
+  // Calculate FC (Warehouse) performance with customer data
   const fcStats = {};
+  const fcCustomerRevenue = {}; // Track revenue per customer per FC
+  const fcProvinceCustomerFrequency = {}; // Track repeat customers per province per FC
+
   validData.forEach(row => {
     const fc = row.fc_code;
+    const customerId = row.customer_id;
+    const province = row.province_name;
+
     if (!fcStats[fc]) {
       fcStats[fc] = {
         fc_code: fc,
         orders: 0,
         packages: 0,
-        revenue: 0
+        revenue: 0,
+        customers: new Set(),
+        bins: 0,
+        binOrders: 0,
+        cartonOrders: 0,
+        provinceCustomers: {} // Track customers per province
       };
     }
     fcStats[fc].orders += 1;
     fcStats[fc].packages += row.total_packages || 0;
     fcStats[fc].revenue += row.delivery_amount || 0;
+
+    // Track customers per FC
+    if (hasCustomerData && customerId) {
+      fcStats[fc].customers.add(customerId);
+
+      // Track customer revenue
+      if (!fcCustomerRevenue[fc]) {
+        fcCustomerRevenue[fc] = {};
+      }
+      if (!fcCustomerRevenue[fc][customerId]) {
+        fcCustomerRevenue[fc][customerId] = {
+          customer_id: customerId,
+          total_revenue: 0,
+          order_count: 0
+        };
+      }
+      fcCustomerRevenue[fc][customerId].total_revenue += row.delivery_amount || 0;
+      fcCustomerRevenue[fc][customerId].order_count += 1;
+
+      // Track province customer frequency
+      if (province) {
+        if (!fcStats[fc].provinceCustomers[province]) {
+          fcStats[fc].provinceCustomers[province] = {};
+        }
+        if (!fcStats[fc].provinceCustomers[province][customerId]) {
+          fcStats[fc].provinceCustomers[province][customerId] = 0;
+        }
+        fcStats[fc].provinceCustomers[province][customerId] += 1;
+      }
+    }
+
+    // Track bins per FC
+    if (hasBinData) {
+      const bins = parseFloat(row.no_bins);
+      if (isNaN(bins) || bins === null || bins === undefined) {
+        fcStats[fc].cartonOrders++;
+      } else {
+        fcStats[fc].binOrders++;
+        fcStats[fc].bins += bins;
+      }
+    }
   });
 
   // Convert to array and calculate percentages
-  const fcPerformance = Object.values(fcStats).map(fc => ({
-    ...fc,
-    avgOrderValue: fc.revenue / fc.orders,
-    marketShare: (fc.orders / totalOrders) * 100,
-    revenueShare: (fc.revenue / totalRevenue) * 100
-  })).sort((a, b) => b.orders - a.orders);
+  const fcPerformance = Object.values(fcStats).map(fc => {
+    // Get top 3 customers by revenue for this FC
+    const topCustomers = fcCustomerRevenue[fc.fc_code]
+      ? Object.values(fcCustomerRevenue[fc.fc_code])
+          .sort((a, b) => b.total_revenue - a.total_revenue)
+          .slice(0, 3)
+      : [];
 
-  // Calculate province performance
+    // Get top provinces by repeat customer frequency
+    const provinceFrequency = Object.keys(fc.provinceCustomers).map(province => {
+      const customerOrders = fc.provinceCustomers[province];
+      const repeatCustomers = Object.values(customerOrders).filter(count => count > 1).length;
+      const totalCustomers = Object.keys(customerOrders).length;
+      return {
+        province_name: province,
+        repeat_customers: repeatCustomers,
+        total_customers: totalCustomers,
+        repeat_rate: totalCustomers > 0 ? (repeatCustomers / totalCustomers) * 100 : 0
+      };
+    }).sort((a, b) => b.repeat_customers - a.repeat_customers);
+
+    // Calculate median orders per customer (without outliers)
+    const customerOrderCounts = fcCustomerRevenue[fc.fc_code]
+      ? Object.values(fcCustomerRevenue[fc.fc_code]).map(c => c.order_count)
+      : [];
+    const cleanedOrderCounts = removeOutliers(customerOrderCounts);
+    const medianOrdersPerCustomer = calculateMedian(cleanedOrderCounts);
+
+    // Calculate median revenue per customer (without outliers)
+    const customerRevenueValues = fcCustomerRevenue[fc.fc_code]
+      ? Object.values(fcCustomerRevenue[fc.fc_code]).map(c => c.total_revenue)
+      : [];
+    const cleanedRevenueValues = removeOutliers(customerRevenueValues);
+    const medianRevenuePerCustomer = calculateMedian(cleanedRevenueValues);
+
+    return {
+      ...fc,
+      totalCustomers: fc.customers.size,
+      // Orders vs metrics
+      avgPackagesPerOrder: fc.orders > 0 ? fc.packages / fc.orders : 0,
+      avgBinsPerOrder: fc.orders > 0 ? fc.bins / fc.orders : 0,
+      avgRevenuePerOrder: fc.orders > 0 ? fc.revenue / fc.orders : 0,
+      // Customer metrics (median - without outliers)
+      medianOrdersPerCustomer: medianOrdersPerCustomer,
+      medianRevenuePerCustomer: medianRevenuePerCustomer,
+      // Legacy metrics (mean - with outliers)
+      avgBinPerPackage: fc.packages > 0 ? fc.bins / fc.packages : 0,
+      avgOrderValue: fc.revenue / fc.orders,
+      avgRevenuePerCustomer: fc.customers.size > 0 ? fc.revenue / fc.customers.size : 0,
+      avgOrdersPerCustomer: fc.customers.size > 0 ? fc.orders / fc.customers.size : 0,
+      marketShare: (fc.orders / totalOrders) * 100,
+      revenueShare: (fc.revenue / totalRevenue) * 100,
+      topCustomers: topCustomers,
+      topProvincesByRepeatCustomers: provinceFrequency.slice(0, 5),
+      customers: undefined, // Remove Set
+      provinceCustomers: undefined // Remove detailed data
+    };
+  }).sort((a, b) => b.orders - a.orders);
+
+  // Calculate province performance with FC mapping
   const provinceStats = {};
   validData.forEach(row => {
     const province = row.province_name;
+    const fc = row.fc_code;
     if (!province) return;
 
     if (!provinceStats[province]) {
       provinceStats[province] = {
         province_name: province,
+        fc_code: fc, // Track which FC this province belongs to
         orders: 0,
         packages: 0,
         revenue: 0,
@@ -109,6 +241,8 @@ export function processLogisticsData(rawData) {
   const provincePerformance = Object.values(provinceStats).map(prov => ({
     ...prov,
     avgOrderValue: prov.revenue / prov.orders,
+    avgRevenuePerCustomer: prov.customers.size > 0 ? prov.revenue / prov.customers.size : 0,
+    avgOrdersPerCustomer: prov.customers.size > 0 ? prov.orders / prov.customers.size : 0,
     totalCustomers: prov.customers.size, // Convert Set to count
     customers: undefined // Remove Set from output
   })).sort((a, b) => b.orders - a.orders);

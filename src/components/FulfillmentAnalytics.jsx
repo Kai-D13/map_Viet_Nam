@@ -8,6 +8,7 @@ import { processLogisticsData } from '../utils/dataProcessor';
 function FulfillmentAnalytics() {
   const [processedData, setProcessedData] = useState(null);
   const [fileName, setFileName] = useState(null);
+  const [provinceFilter, setProvinceFilter] = useState(''); // Add province filter state
 
   const handleDataLoaded = (rawData, uploadedFileName) => {
     console.log('Processing data...', rawData.length, 'rows');
@@ -22,6 +23,7 @@ function FulfillmentAnalytics() {
   const handleReset = () => {
     setProcessedData(null);
     setFileName(null);
+    setProvinceFilter('');
   };
 
   return (
@@ -109,14 +111,100 @@ function FulfillmentAnalytics() {
             flexDirection: 'column',
             gap: '20px'
           }}>
+            {/* Province Filter */}
+            <div style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              padding: '20px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '15px',
+                flexWrap: 'wrap'
+              }}>
+                <label style={{
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: '#1f2937'
+                }}>
+                  🔍 Filter by Province:
+                </label>
+                <select
+                  value={provinceFilter}
+                  onChange={(e) => setProvinceFilter(e.target.value)}
+                  style={{
+                    padding: '8px 16px',
+                    borderRadius: '8px',
+                    border: '2px solid #e5e7eb',
+                    fontSize: '14px',
+                    color: '#1f2937',
+                    backgroundColor: 'white',
+                    cursor: 'pointer',
+                    minWidth: '250px',
+                    outline: 'none',
+                    transition: 'border-color 0.3s'
+                  }}
+                  onFocus={(e) => e.currentTarget.style.borderColor = '#3b82f6'}
+                  onBlur={(e) => e.currentTarget.style.borderColor = '#e5e7eb'}
+                >
+                  <option value="">All Provinces</option>
+                  {processedData.provincePerformance.map(prov => (
+                    <option key={prov.province_name} value={prov.province_name}>
+                      {prov.province_name} ({prov.fc_code})
+                    </option>
+                  ))}
+                </select>
+                {provinceFilter && (
+                  <button
+                    onClick={() => setProvinceFilter('')}
+                    style={{
+                      padding: '8px 16px',
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      transition: 'all 0.3s'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#dc2626'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#ef4444'}
+                  >
+                    ✕ Clear Filter
+                  </button>
+                )}
+              </div>
+              {provinceFilter && (
+                <div style={{
+                  marginTop: '12px',
+                  padding: '12px',
+                  backgroundColor: '#eff6ff',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  color: '#1e40af'
+                }}>
+                  📍 Showing data for: <strong>{provinceFilter}</strong>
+                </div>
+              )}
+            </div>
+
             {/* KPI Cards */}
-            <KPICards summary={processedData.summary} />
+            <KPICards 
+              summary={processedData.summary} 
+              fcPerformance={processedData.fcPerformance}
+            />
 
             {/* FC Performance */}
             <FCPerformance fcPerformance={processedData.fcPerformance} />
 
             {/* Province Performance */}
-            <ProvincePerformance provincePerformance={processedData.provincePerformance} />
+            <ProvincePerformance 
+              provincePerformance={processedData.provincePerformance}
+              provinceFilter={provinceFilter}
+            />
 
             {/* Additional Info */}
             <div style={{

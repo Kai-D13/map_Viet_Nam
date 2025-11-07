@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { formatCurrency, formatNumber } from '../utils/dataProcessor';
 
-function ProvincePerformance({ provincePerformance }) {
+function ProvincePerformance({ provincePerformance, provinceFilter }) {
   const [showCount, setShowCount] = useState(10);
 
   if (!provincePerformance || provincePerformance.length === 0) return null;
@@ -11,14 +11,20 @@ function ProvincePerformance({ provincePerformance }) {
   const hasCustomerData = provincePerformance.length > 0 &&
     provincePerformance[0].totalCustomers !== undefined;
 
+  // Filter data if province filter is active
+  const filteredProvinces = provinceFilter
+    ? provincePerformance.filter(p => p.province_name === provinceFilter)
+    : provincePerformance;
+
   // Get top N provinces
-  const topProvinces = provincePerformance.slice(0, showCount);
+  const topProvinces = filteredProvinces.slice(0, showCount);
 
   // Prepare data for bar chart
   const chartData = topProvinces.map(prov => ({
     name: prov.province_name.replace('Thành phố ', '').replace('Tỉnh ', ''),
     orders: prov.orders,
-    revenue: prov.revenue
+    revenue: prov.revenue,
+    fc_code: prov.fc_code
   }));
 
   // Color gradient for bars
@@ -104,7 +110,7 @@ function ProvincePerformance({ provincePerformance }) {
           color: '#1f2937',
           fontWeight: 'bold'
         }}>
-          🏆 Top 10 Provinces
+          🏆 {provinceFilter ? 'Province Details' : 'Top 10 Provinces'}
         </h3>
         
         <div style={{
@@ -121,13 +127,13 @@ function ProvincePerformance({ provincePerformance }) {
             <thead style={{ position: 'sticky', top: 0, backgroundColor: '#f3f4f6', zIndex: 1 }}>
               <tr>
                 <th style={headerStyle}>#</th>
-                <th style={headerStyle}>Province</th>
+                <th style={headerStyle}>Province (FC)</th>
                 <th style={headerStyle}>Orders</th>
                 {hasCustomerData && <th style={headerStyle}>Customers</th>}
               </tr>
             </thead>
             <tbody>
-              {provincePerformance.slice(0, 10).map((prov, index) => (
+              {filteredProvinces.slice(0, provinceFilter ? 1 : 10).map((prov, index) => (
                 <tr
                   key={prov.province_name}
                   style={{
@@ -148,16 +154,37 @@ function ProvincePerformance({ provincePerformance }) {
                       fontWeight: 'bold',
                       fontSize: '12px'
                     }}>
-                      {index + 1}
+                      {provinceFilter ? '🎯' : index + 1}
                     </div>
                   </td>
                   <td style={cellStyle}>
                     <div style={{ fontSize: '12px', fontWeight: '500' }}>
                       {prov.province_name.replace('Thành phố ', '').replace('Tỉnh ', '')}
+                      <span style={{
+                        marginLeft: '6px',
+                        padding: '2px 6px',
+                        backgroundColor: prov.fc_code === 'BD' ? '#3b82f6' : '#f59e0b',
+                        color: 'white',
+                        borderRadius: '4px',
+                        fontSize: '10px',
+                        fontWeight: 'bold'
+                      }}>
+                        {prov.fc_code}
+                      </span>
                     </div>
-                    <div style={{ fontSize: '11px', color: '#9ca3af' }}>
-                      {formatCurrency(prov.revenue)}
+                    <div style={{ fontSize: '11px', color: '#9ca3af', marginTop: '2px' }}>
+                      Revenue: {formatCurrency(prov.revenue)}
                     </div>
+                    {hasCustomerData && (
+                      <>
+                        <div style={{ fontSize: '10px', color: '#6b7280', marginTop: '4px' }}>
+                          • Avg orders/customer: {prov.avgOrdersPerCustomer.toFixed(2)}
+                        </div>
+                        <div style={{ fontSize: '10px', color: '#6b7280' }}>
+                          • Avg revenue/customer: {formatCurrency(prov.avgRevenuePerCustomer)}
+                        </div>
+                      </>
+                    )}
                   </td>
                   <td style={{ ...cellStyle, fontWeight: 'bold', color: '#4264fb' }}>
                     {formatNumber(prov.orders)}
